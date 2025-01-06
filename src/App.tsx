@@ -1,9 +1,15 @@
 import "./App.css";
+import { BrowserRouter } from "react-router-dom";
+import Layout from "./components/Layout";
 
 function App() {
   return (
     <>
-      <div>Hello</div>
+      <BrowserRouter>
+        <Layout>
+          Hello
+        </Layout>
+      </BrowserRouter>
     </>
   );
 }
