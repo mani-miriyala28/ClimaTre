@@ -10,6 +10,7 @@ import {
   useWeatherQuery,
 } from "@/hooks/useWeather";
 import CurrentWeather from "@/components/CurrentWeather";
+import HourlyTemperature from "@/components/HourlyTemperature";
 
 const WeatherDashboard = () => {
   const {
@@ -113,12 +114,12 @@ const WeatherDashboard = () => {
       </div>
 
       <div className="grid gap-6">
-        <div>
+        <div className="flex flex-col lg:flex-row gap-4">
           <CurrentWeather
             data={weatherQuery.data}
             locationName={locationName}
           />
-          details forecast
+          <HourlyTemperature data={forecastQuery.data} />
         </div>
       </div>
     </div>
