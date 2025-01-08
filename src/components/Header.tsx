@@ -1,6 +1,7 @@
 import { useTheme } from "@/context/theme-provider";
 import { Moon, Sun } from "lucide-react";
 import { Link } from "react-router-dom";
+import { CitySearch } from "./CitySearch";
 
 const Header = () => {
   const { theme, setTheme } = useTheme();
@@ -15,8 +16,9 @@ const Header = () => {
             className={`h-14 object-contain`}
           />
         </Link>
-        <div>
+        <div className="flex gap-4">
           {/*Search Bar*/}
+          <CitySearch />
           {/*toggle button*/}
           <div
             className={`flex items-center cursor-pointer transition-transform duration-500  ${
