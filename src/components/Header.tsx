@@ -1,7 +1,7 @@
 import { useTheme } from "@/context/theme-provider";
 import { Moon, Sun } from "lucide-react";
-import React from "react";
 import { Link } from "react-router-dom";
+import { CitySearch } from "./CitySearch";
 
 const Header = () => {
   const { theme, setTheme } = useTheme();
@@ -13,11 +13,12 @@ const Header = () => {
           <img
             src={theme === "dark" ? "./dark.png" : "./light.png"}
             alt="Climate Logo"
-            className={`h-14 ${isDark ? 'bg-[#0a0a0a]' : "bg-[#ffffff]"}`}
+            className={`h-14 object-contain`}
           />
         </Link>
-        <div>
+        <div className="flex gap-4">
           {/*Search Bar*/}
+          <CitySearch />
           {/*toggle button*/}
           <div
             className={`flex items-center cursor-pointer transition-transform duration-500  ${
@@ -28,10 +29,10 @@ const Header = () => {
             }}
           >
             {isDark ? (
-                <Sun className="h-6 w-6 text-yellow-500 rotate-0 transition-all" />
+              <Sun className="h-6 w-6 text-yellow-500 rotate-0 transition-all" />
             ) : (
-                <Moon className="h-6 w-6 text-blue-500 rotate-0 transition-all" />
-                )}
+              <Moon className="h-6 w-6 text-blue-500 rotate-0 transition-all" />
+            )}
           </div>
         </div>
       </div>
