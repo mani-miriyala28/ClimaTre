@@ -1,6 +1,6 @@
 import { WeatherData } from "@/api/types";
 import { format } from "date-fns";
-import { Compass, Gauge, Sunrise, Sunset } from "lucide-react";
+import { Compass, Droplet, Gauge, Sunrise, Sunset } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 interface WeatherDetailsProps {
@@ -8,7 +8,6 @@ interface WeatherDetailsProps {
 }
 export function WeatherDetails({ data }: WeatherDetailsProps) {
   const { wind, main, sys } = data;
-
   // Format time using date-fns
   const formatTime = (timestamp: number) => {
     return format(new Date(timestamp * 1000), "h:mm a");
@@ -34,6 +33,12 @@ export function WeatherDetails({ data }: WeatherDetailsProps) {
       value: formatTime(sys.sunset),
       icon: Sunset,
       color: "text-blue-500",
+    },
+    {
+      title: "Humidity",
+      value: `${main.humidity}%`,
+      icon: Droplet,
+      color: "text-yellow-500",
     },
     {
       title: "Wind Direction",
