@@ -13,18 +13,27 @@ import { format } from "date-fns";
 interface HourlyTemperatureProps {
   data: ForecastData;
 }
+interface ChartData {
+  time: string;
+  temp: number;
+  feels_like: number;
+}
 
-const HourlyTemperature = ({ data }: HourlyTemperatureProps) => {
-  const chartData = data.list.slice(0, 8).map((item) => ({
-    time: format(new Date(item.dt * 1000), "ha"),
-    temp: Math.round(item.main.temp),
-    feels_like: Math.round(item.main.feels_like),
-  }));
+export function HourlyTemperature({ data }: HourlyTemperatureProps) {
+  // Get today's forecast data and format for chart
+
+  const chartData: ChartData[] = data.list
+    .slice(0, 8) // Get next 24 hours (3-hour intervals)
+    .map((item) => ({
+      time: format(new Date(item.dt * 1000), "ha"),
+      temp: Math.round(item.main.temp),
+      feels_like: Math.round(item.main.feels_like),
+    }));
 
   return (
     <Card className="flex-1">
       <CardHeader>
-        <CardTitle>Hourly Temperature</CardTitle>
+        <CardTitle>Today's Temperature</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="h-[200px] w-full">
@@ -42,36 +51,12 @@ const HourlyTemperature = ({ data }: HourlyTemperatureProps) => {
                 fontSize={12}
                 tickLine={false}
                 axisLine={false}
-                tickFormatter={(value) => `${value}°C`}
+                tickFormatter={(value) => `${value}°`}
               />
-              {/* tooltip */}
               <Tooltip
                 content={({ active, payload }) => {
                   if (active && payload && payload.length) {
                     return (
-                      //   <div className="bg-white p-2 rounded-lg shadow-md">
-                      //     {/* <p className="text-sm text-gray-800 font-medium">
-                      //       {payload[0].payload.time}
-                      //     </p> */}
-                      //     <div className="grid grid-cols-2 gap-2">
-                      //       <div>
-                      //         <p className="text-sm text-gray-800 font-medium">
-                      //           Temp
-                      //         </p>
-                      //         <p className="text-sm text-gray-800 font-medium">
-                      //           Feels Like
-                      //         </p>
-                      //       </div>
-                      //       <div>
-                      //         <p className="text-sm text-gray-800 font-medium">
-                      //           {payload[0].payload.temp}°C
-                      //         </p>
-                      //         <p className="text-sm text-gray-800 font-medium">
-                      //           {payload[0].payload.feels_like}°C
-                      //         </p>
-                      //       </div>
-                      //     </div>
-                      //   </div>
                       <div className="rounded-lg border bg-background p-2 shadow-sm">
                         <div className="grid grid-cols-2 gap-2">
                           <div className="flex flex-col">
@@ -98,19 +83,19 @@ const HourlyTemperature = ({ data }: HourlyTemperatureProps) => {
                 }}
               />
               <Line
-                type={"monotone"}
+                type="monotone"
                 dataKey="temp"
                 stroke="#2563eb"
                 strokeWidth={2}
-                dot={true}
+                dot={false}
               />
               <Line
-                type={"monotone"}
+                type="monotone"
                 dataKey="feels_like"
                 stroke="#64748b"
                 strokeWidth={2}
-                dot={true}
-                strokeDasharray={"5 5"}
+                dot={false}
+                strokeDasharray="5 5"
               />
             </LineChart>
           </ResponsiveContainer>
@@ -118,6 +103,4 @@ const HourlyTemperature = ({ data }: HourlyTemperatureProps) => {
       </CardContent>
     </Card>
   );
-};
-
-export default HourlyTemperature;
+}

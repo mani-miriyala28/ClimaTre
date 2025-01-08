@@ -1,5 +1,6 @@
 import { Skeleton } from "./ui/skeleton";
-export function WeatherSkeleton() {
+
+function WeatherSkeleton() {
   return (
     <div className="space-y-6">
       <div className="grid gap-6">
@@ -13,3 +14,5 @@ export function WeatherSkeleton() {
     </div>
   );
 }
+
+export default WeatherSkeleton;
